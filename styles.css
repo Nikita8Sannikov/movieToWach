@@ -64,22 +64,30 @@
     z-index: 1000;
 }
 
+
+.description-modal.open  .modal-window {
+    transform: translateY(100px);
+}
+.description-modal.open  .modal-overlay{
+    background: rgba(0, 0, 0, .5);
+}
+
 .modal-overlay{
     position: fixed;
     top: 0;
     right: 0;
     left: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0);
     transition: background .2s ease-in;
 }
 .modal-window {
     width: 600px;
     border-radius: 5px;
     background: #fff;
-    margin: 100px auto;
-    /* transform: translateY(-200px); */
-    /* transition: transform .2s ease-in; */
+    margin: 0 auto;
+    transform: translateY(-200px);
+    transition: transform .2s ease-in;
 
 }
 .modal-header{
