@@ -3,11 +3,11 @@ function _createDescriptionModal(options) {
     const descriptionModal = document.createElement('div')
     descriptionModal.classList.add('description-modal')
     descriptionModal.insertAdjacentHTML('afterbegin', `
-    <div class="modal-overlay">
+    <div class="modal-overlay" data-close = "true" >
       <div class="modal-window" style: = "width: ${options.width || DEFAULT_WIDTH}">
         <div class="modal-header">
           <span class="modal-title">${options.title || 'Окно'}</span>
-          ${options.closable ? `<span class="modal-close" >&times;</span>` : ''}
+          ${options.closable ? `<span class="modal-close" data-close = "true"  >&times;</span>` : ''}
         </div>
         <div class="modal-body">
           ${options.content || ''}
@@ -28,7 +28,7 @@ $.descriptionModal = function (options) {
     const $descriptionModal =  _createDescriptionModal(options)
     const ANIMATION_SPEED = 200
     let closing = false
-    return {
+    modal = {
         open() {
             !closing && $descriptionModal.classList.add('open')
         },
@@ -42,5 +42,10 @@ $.descriptionModal = function (options) {
             },ANIMATION_SPEED)
         },
         destroy() {},
+
     }
+    $descriptionModal.addEventListener('click', event => {
+        modal.close()
+    })
+    return modal
 }
