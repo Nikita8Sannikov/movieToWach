@@ -26,13 +26,20 @@ function _createDescriptionModal(options) {
 
 $.descriptionModal = function (options) {
     const $descriptionModal =  _createDescriptionModal(options)
-
+    const ANIMATION_SPEED = 200
+    let closing = false
     return {
         open() {
-            $descriptionModal.classList.add('open')
+            !closing && $descriptionModal.classList.add('open')
         },
         close() {
+            closing = true
             $descriptionModal.classList.remove('open')
+            $descriptionModal.classList.add('hide')
+            setTimeout(() => {
+                $descriptionModal.classList.remove('hide')
+                closing = false
+            },ANIMATION_SPEED)
         },
         destroy() {},
     }
