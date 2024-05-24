@@ -62,4 +62,3 @@ function createSlide(filmName, url){
 
 const descriptionModal = $.descriptionModal ()
 
-descriptionModal.open()

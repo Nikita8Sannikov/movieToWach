@@ -51,6 +51,19 @@
     outline: none;
     border: 1px solid #ecdede;
 }
+
+.modal-window, .modal-overlay{
+    opacity: 0;
+    z-index: -1;
+}
+.description-modal{}
+
+.description-modal.open .modal-overlay,
+.description-modal.open .modal-window {
+    opacity: 1;
+    z-index: 1000;
+}
+
 .modal-overlay{
     position: fixed;
     top: 0;
