@@ -47,7 +47,7 @@ addBtn.addEventListener('click', () => {
 function createSlide(filmName, url){
     const newFilm = document.createElement('div')
     newFilm.classList.add('film')
-    filmContainer.appendChild(newFilm)
+    // filmContainer.appendChild(newFilm)
 
     const img = document.createElement('img')
     img.src = url
@@ -58,5 +58,12 @@ function createSlide(filmName, url){
     name.classList.add('film__name')
     name.innerText = filmName
     newFilm.appendChild(name)
+
+    if ( filmContainer.firstChild) {
+        filmContainer.insertBefore(newFilm, filmContainer.firstChild)
+    }else {
+        filmContainer.appendChild(newFilm)
+    }
+
 }
 
