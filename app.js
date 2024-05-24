@@ -1,4 +1,4 @@
-const films = document.querySelectorAll('.film')
+const films = document.querySelectorAll('.card')
 const output = document.querySelector('.output')
 const btn = document.querySelector('.button')
 const outputImage = document.querySelector('.output-image');
@@ -25,11 +25,11 @@ function randomInteger(min, max) {
 btn.addEventListener('click', () => {
     output.innerText = 'Выбираю ваш фильм...'
     setTimeout(() =>{
-        const films = document.querySelectorAll('.film'); 
+        const films = document.querySelectorAll('.card'); 
         const randomNumber =  randomInteger(0, films.length-1)
         console.log(films.length);
         const selectedFilmHTML = films[randomNumber];
-        const filmName = selectedFilmHTML .querySelector('.film__name').innerText;
+        const filmName = selectedFilmHTML.querySelector('.card-title').innerText;
         const filmImageSrc = selectedFilmHTML .querySelector('img').src;
         output.innerText = filmName;
         outputImage.innerHTML = `<img src="${filmImageSrc}" alt="${filmName}" />`;  
@@ -55,7 +55,7 @@ function createSlide(filmName, url){
     newFilm.appendChild(img)
 
     const name = document.createElement('div')
-    name.classList.add('film__name')
+    name.classList.add('card-title')
     name.innerText = filmName
     newFilm.appendChild(name)
 
