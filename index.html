@@ -4,14 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="styles.css" />
-    <script src="app.js" defer></script>
   </head>
   <body>
     <div class="film-container">
-      <div class="card" >
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-6QE9dBnvT2N9CjHp2DZOAWKOLWCZMlppgexdIBbvWQ&s" class="card-img-top" alt="...">
+      <div class="card">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-6QE9dBnvT2N9CjHp2DZOAWKOLWCZMlppgexdIBbvWQ&s"
+          class="card-img-top"
+          alt="..."
+        />
         <div class="card-body">
           <h5 class="card-title">Дракула Брэма Стокера</h5>
           <p class="card-text">описание</p>
@@ -19,8 +27,12 @@
           <a href="#" class="btn btn-danger">Просмотрено</a>
         </div>
       </div>
-      <div class="card" >
-        <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/6025abef-078b-4385-9cec-8237194ed38e/600x900" class="card-img-top" alt="...">
+      <div class="card">
+        <img
+          src="https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/6025abef-078b-4385-9cec-8237194ed38e/600x900"
+          class="card-img-top"
+          alt="..."
+        />
         <div class="card-body">
           <h5 class="card-title">Город Грехов</h5>
           <p class="card-text">описание</p>
@@ -28,8 +40,12 @@
           <a href="#" class="btn btn-danger">Просмотрено</a>
         </div>
       </div>
-      <div class="card" >
-        <img src="https://thumbs.dfs.ivi.ru/storage4/contents/3/a/7da3eac3e71e63c85b578305a86143.jpg" class="card-img-top" alt="...">
+      <div class="card">
+        <img
+          src="https://thumbs.dfs.ivi.ru/storage4/contents/3/a/7da3eac3e71e63c85b578305a86143.jpg"
+          class="card-img-top"
+          alt="..."
+        />
         <div class="card-body">
           <h5 class="card-title">Автостопом по галактике</h5>
           <p class="card-text">описание</p>
@@ -37,8 +53,12 @@
           <a href="#" class="btn btn-danger">Просмотрено</a>
         </div>
       </div>
-      <div class="card" >
-        <img src="https://thumbs.dfs.ivi.ru/storage8/contents/9/1/e225fa76749bff29a36d96e3401296.jpg" class="card-img-top" alt="...">
+      <div class="card">
+        <img
+          src="https://thumbs.dfs.ivi.ru/storage8/contents/9/1/e225fa76749bff29a36d96e3401296.jpg"
+          class="card-img-top"
+          alt="..."
+        />
         <div class="card-body">
           <h5 class="card-title">Завтрак у Тиффани</h5>
           <p class="card-text">описание</p>
@@ -62,33 +82,26 @@
         <button class="add-button">Добавить</button>
       </form>
     </div>
+    <div class="description-modal">
+      <div class="modal-overlay">
+        <div class="modal-window">
+          <div class="modal-header">
+            <span class="modal-title">Описание</span>
+            <span class="modal-close" >&times;</span>
+          </div>
+          <div class="modal-body">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, nihil.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, nihil.</p>
+          </div>
+          <div class="modal-footer">
+            <button>Ок</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="base.js"></script>
+    <script src="plugins/description-modal.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
-
-<!-- <div class="film">
-  <img
-    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-6QE9dBnvT2N9CjHp2DZOAWKOLWCZMlppgexdIBbvWQ&s"
-    alt="Дракула"
-  />
-  <div class="film__name">Дракула Брэма Стокера</div>
-</div> -->
-
-<!-- <div class="film">
-  <img
-    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-6QE9dBnvT2N9CjHp2DZOAWKOLWCZMlppgexdIBbvWQ&s"
-    alt="Дракула"
-  />
-  <div class="film-body">
-    <h5 class="film-title">Дракула Брэма Стокера</h5>
-    <p class="film-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn ">Go somewhere</a>
-  </div> -->
-
-  <!-- <div class="card" ">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-6QE9dBnvT2N9CjHp2DZOAWKOLWCZMlppgexdIBbvWQ&s" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Дракула Брэма Стокера</h5>
-      <p class="card-text">описание</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div> -->

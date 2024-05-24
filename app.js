@@ -8,17 +8,8 @@ const addBtn = document.querySelector('.add-button');
 const filmContainer = document.querySelector('.film-container');
 
 
-
-
-// films.forEach((film, index) => {
-//     console.log('фильм:', film.innerText, index);
-// });
-
 function randomInteger(min, max) {
     let rand = min + Math.random() * (max + 1 - min);
-    // index = Math.floor(rand);
-    // res = films[index].innerText
-    // return output.innerText = res
     return Math.floor(rand)
   }
 
@@ -67,3 +58,8 @@ function createSlide(filmName, url){
 
 }
 
+
+
+const descriptionModal = $.descriptionModal ()
+
+descriptionModal.open()
