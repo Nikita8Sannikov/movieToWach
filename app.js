@@ -60,5 +60,24 @@ function createSlide(filmName, url){
 
 
 
-const descriptionModal = $.descriptionModal ()
+const descriptionModal = $.descriptionModal ({
+        title: 'Описание фильма',
+        closable: true,
+        content: `
+        <p>Lorem ipsum dolor sit.</p>
+        `,
+        width: '400px',
+        footerButtons: [
+            {text: 'Закрыть', type: 'primary', handler() {
+                priceModal.close()
+            }},
+            
+        ],
+        onOpen: function () {
+            console.log('Хук onOpen')
+        },
+        onClose: function() {
+            console.log('Хук onClose');
+        }
+})
 

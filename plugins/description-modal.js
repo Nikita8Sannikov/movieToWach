@@ -1,16 +1,16 @@
 function _createDescriptionModal(options) {
+    const DEFAULT_WIDTH = '600px'
     const descriptionModal = document.createElement('div')
     descriptionModal.classList.add('description-modal')
     descriptionModal.insertAdjacentHTML('afterbegin', `
     <div class="modal-overlay">
-      <div class="modal-window">
+      <div class="modal-window" style: = "width: ${options.width || DEFAULT_WIDTH}">
         <div class="modal-header">
-          <span class="modal-title">Описание</span>
-          <span class="modal-close" >&times;</span>
+          <span class="modal-title">${options.title || 'Окно'}</span>
+          ${options.closable ? `<span class="modal-close" >&times;</span>` : ''}
         </div>
         <div class="modal-body">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, nihil.</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, nihil.</p>
+          ${options.content || ''}
         </div>
         <div class="modal-footer">
           <button>Ок</button>
