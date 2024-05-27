@@ -76,7 +76,7 @@ const toHtml = movie => `
           <h5 class="card-title">${movie.title}</h5>
           <p class="card-text">описание</p>
           <a href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</a>
-          <a href="#" class="btn btn-danger">Просмотрено</a>
+          <a href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>Просмотрено</a>
         </div>
       </div>
 `
@@ -116,19 +116,50 @@ const descriptionModal = $.descriptionModal ({
             console.log('Хук onClose');
         }
 })
+const viewedModal = $.descriptionModal ({
+        title: 'Удалить из рандомайзера?',
+        closable: true,
+        // content: `
+        // <p>Lorem ipsum dolor sit.</p>
+        // `,
+        width: '400px',
+        footerButtons: [
+            {text:'Да', 
+            type: 'secondary', //Класс бутстрапа, потом заменю на свой
+            handler() {
+                console.log('primary btn clicked');
+                viewedModal.close()
+            }},
+            {text:'Нет', 
+            type: 'danger', //Класс бутстрапа, потом заменю на свой
+            handler() {
+                console.log('danger btn clicked');
+                viewedModal.close()
+            }},
+        ],
+        onOpen: function () {
+            console.log('Хук onOpen')
+        },
+        onClose: function() {
+            console.log('Хук onClose');
+        }
+})
 
 document.addEventListener('click',event =>{
     event.preventDefault()
     const btnType = event.target.dataset.btn
     const id = +event.target.dataset.id
-    
+    const movie = allMovies.find( f => f.id === id)
 
     if(btnType === 'description') {
-        const movie = allMovies.find( f => f.id === id)
         descriptionModal.setContent(`
             <p> <strong> ${movie.title} </strong> </br> Some description</p>
         `)
         descriptionModal.open()
-        
+    }else if(btnType === 'viewed'){
+        viewedModal.setContent(`
+        <p> Вы удаляете: <strong> ${movie.title} </strong> </p>
+    `)
+        viewedModal.open()
     }
 })
