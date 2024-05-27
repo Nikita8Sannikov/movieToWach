@@ -68,10 +68,18 @@ const descriptionModal = $.descriptionModal ({
         `,
         width: '400px',
         footerButtons: [
-            {text: 'Закрыть', type: 'primary', handler() {
-                priceModal.close()
+            {text:'OK', 
+            type: 'primary', //Класс бутстрапа, потом заменю на свой
+            handler() {
+                console.log('primary btn clicked');
+                descriptionModal.close()
             }},
-            
+            {text:'Cancel', 
+            type: 'danger', //Класс бутстрапа, потом заменю на свой
+            handler() {
+                console.log('danger btn clicked');
+                descriptionModal.close()
+            }},
         ],
         onOpen: function () {
             console.log('Хук onOpen')
