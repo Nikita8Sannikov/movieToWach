@@ -58,14 +58,42 @@ function createSlide(filmName, url){
 
 }
 
+let allMovies = [
+    {id:1, title: 'Дракула Брэма Стокера', img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-6QE9dBnvT2N9CjHp2DZOAWKOLWCZMlppgexdIBbvWQ&s"},
+    {id:2, title: 'Город Грехов',  img: "https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/6025abef-078b-4385-9cec-8237194ed38e/600x900"},
+    {id:3, title: 'Автостопом по галактике',  img: "https://thumbs.dfs.ivi.ru/storage4/contents/3/a/7da3eac3e71e63c85b578305a86143.jpg"},
+    {id:4, title: 'Завтрак у Тиффани',  img: "https://thumbs.dfs.ivi.ru/storage8/contents/9/1/e225fa76749bff29a36d96e3401296.jpg"},
+]
 
+
+const toHtml = movie => `
+<div class="card">
+        <img
+          src="${movie.img}"
+          alt="${movie.title}"
+        />
+        <div class="card-body">
+          <h5 class="card-title">${movie.title}</h5>
+          <p class="card-text">описание</p>
+          <a href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</a>
+          <a href="#" class="btn btn-danger">Просмотрено</a>
+        </div>
+      </div>
+`
+
+function render(){
+    const html = allMovies.map(movie => toHtml(movie)).join('')
+    document.querySelector('#films').innerHTML = html
+}
+
+render()
 
 const descriptionModal = $.descriptionModal ({
         title: 'Описание фильма',
         closable: true,
-        content: `
-        <p>Lorem ipsum dolor sit.</p>
-        `,
+        // content: `
+        // <p>Lorem ipsum dolor sit.</p>
+        // `,
         width: '400px',
         footerButtons: [
             {text:'OK', 
@@ -74,12 +102,12 @@ const descriptionModal = $.descriptionModal ({
                 console.log('primary btn clicked');
                 descriptionModal.close()
             }},
-            {text:'Cancel', 
-            type: 'danger', //Класс бутстрапа, потом заменю на свой
-            handler() {
-                console.log('danger btn clicked');
-                descriptionModal.close()
-            }},
+            // {text:'Cancel', 
+            // type: 'danger', //Класс бутстрапа, потом заменю на свой
+            // handler() {
+            //     console.log('danger btn clicked');
+            //     descriptionModal.close()
+            // }},
         ],
         onOpen: function () {
             console.log('Хук onOpen')
@@ -89,3 +117,18 @@ const descriptionModal = $.descriptionModal ({
         }
 })
 
+// document.addEventListener('click',event =>{
+//     event.preventDefault()
+//     const btnType = event.target.dataset.btn
+//     const id = +event.target.dataset.id
+    
+
+//     if(btnType === 'description') {
+//         const movie = allMovies.find( f => f.id === id)
+//         descriptionModal.setContent(`
+//             <p> <strong> ${movie.title} </strong> </br> Some description</p>
+//         `)
+//         descriptionModal.open()
+        
+//     }
+// })
