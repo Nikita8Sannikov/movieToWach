@@ -9,7 +9,7 @@ function _createDescriptionModal(options) {
           <span class="modal-title">${options.title || 'Окно'}</span>
           ${options.closable ? `<span class="modal-close" data-close = "true"  >&times;</span>` : ''}
         </div>
-        <div class="modal-body">
+        <div class="modal-body" data-content>
           ${options.content || ''}
         </div>
         <div class="modal-footer">
@@ -61,6 +61,10 @@ $.descriptionModal = function (options) {
         $descriptionModal.parentNode.removeChild($descriptionModal)
         $descriptionModal.removeEventListener('click', listener)
         destroyed = true
+      },
+      setContent(html){
+        $descriptionModal.querySelector('[data-content]').innerHTML = html
       }
+      //По надобности добавь изменения тайтла и прочих конструкций которые тут есть
     })
 }
