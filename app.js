@@ -117,18 +117,18 @@ const descriptionModal = $.descriptionModal ({
         }
 })
 
-// document.addEventListener('click',event =>{
-//     event.preventDefault()
-//     const btnType = event.target.dataset.btn
-//     const id = +event.target.dataset.id
+document.addEventListener('click',event =>{
+    event.preventDefault()
+    const btnType = event.target.dataset.btn
+    const id = +event.target.dataset.id
     
 
-//     if(btnType === 'description') {
-//         const movie = allMovies.find( f => f.id === id)
-//         descriptionModal.setContent(`
-//             <p> <strong> ${movie.title} </strong> </br> Some description</p>
-//         `)
-//         descriptionModal.open()
+    if(btnType === 'description') {
+        const movie = allMovies.find( f => f.id === id)
+        descriptionModal.setContent(`
+            <p> <strong> ${movie.title} </strong> </br> Some description</p>
+        `)
+        descriptionModal.open()
         
-//     }
-// })
+    }
+})
