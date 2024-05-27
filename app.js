@@ -116,34 +116,7 @@ const descriptionModal = $.descriptionModal ({
             console.log('Хук onClose');
         }
 })
-const viewedModal = $.descriptionModal ({
-        title: 'Удалить из рандомайзера?',
-        closable: true,
-        // content: `
-        // <p>Lorem ipsum dolor sit.</p>
-        // `,
-        width: '400px',
-        footerButtons: [
-            {text:'Да', 
-            type: 'secondary', //Класс бутстрапа, потом заменю на свой
-            handler() {
-                console.log('primary btn clicked');
-                viewedModal.close()
-            }},
-            {text:'Нет', 
-            type: 'danger', //Класс бутстрапа, потом заменю на свой
-            handler() {
-                console.log('danger btn clicked');
-                viewedModal.close()
-            }},
-        ],
-        onOpen: function () {
-            console.log('Хук onOpen')
-        },
-        onClose: function() {
-            console.log('Хук onClose');
-        }
-})
+
 
 document.addEventListener('click',event =>{
     event.preventDefault()
@@ -157,9 +130,16 @@ document.addEventListener('click',event =>{
         `)
         descriptionModal.open()
     }else if(btnType === 'viewed'){
-        viewedModal.setContent(`
-        <p> Вы удаляете: <strong> ${movie.title} </strong> </p>
-    `)
-        viewedModal.open()
+        $.viewed({
+            title: 'Удалить из рандомайзера?',
+            content: `<p> Вы удаляете: <strong> ${movie.title} </strong> </p>`
+        }).then( ()=> {
+            console.log('remove');
+            allMovies = allMovies.filter( f => f.id !== id)
+            render()
+        }).catch( () => {
+            console.log('Cancel');
+        })
+    
     }
 })

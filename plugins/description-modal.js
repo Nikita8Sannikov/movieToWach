@@ -73,6 +73,9 @@ $.descriptionModal = function (options) {
             setTimeout(() => {
                 $descriptionModal.classList.remove('hide')
                 closing = false
+                if(typeof options.onClose === 'function') {
+                  options.onClose()
+                }
             },ANIMATION_SPEED)
         },
 
