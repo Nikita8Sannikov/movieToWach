@@ -28,8 +28,12 @@ $.descriptionModal = function (options) {
     const $descriptionModal =  _createDescriptionModal(options)
     const ANIMATION_SPEED = 200
     let closing = false
+    let destroyed = false
     modal = {
         open() {
+          if(destroyed){
+           return console.log('Modal is destroyed');
+          }
             !closing && $descriptionModal.classList.add('open')
         },
         close() {
@@ -41,11 +45,22 @@ $.descriptionModal = function (options) {
                 closing = false
             },ANIMATION_SPEED)
         },
-        destroy() {},
 
     }
-    $descriptionModal.addEventListener('click', event => {
+
+    const listener = event => {
+      if(event.target.dataset.close){
         modal.close()
+    }
+  }
+
+    $descriptionModal.addEventListener('click',listener)
+
+    return Object.assign(modal, {
+      destroy() {
+        $descriptionModal.parentNode.removeChild($descriptionModal)
+        $descriptionModal.removeEventListener('click', listener)
+        destroyed = true
+      }
     })
-    return modal
 }
