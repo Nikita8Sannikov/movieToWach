@@ -49,9 +49,6 @@ function _createDescriptionModal(options) {
     document.body.appendChild(descriptionModal)
     return descriptionModal 
 }
-{/* <div class="modal-footer">
-          <button>Ок</button>
-        </div> */}
 
 
 $.descriptionModal = function (options) {
