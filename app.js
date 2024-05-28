@@ -35,6 +35,8 @@ addBtn.addEventListener('click', () => {
     const name = addFilmName.value
     const url = addUrl.value
     allMovies.push( {id:allMovies.length+1, title: name, img: url})
+    addFilmName.value = ''
+    addUrl.value = ''
     render()
 })
 
@@ -57,9 +59,11 @@ const toHtml = movie => `
         <div class="card-body">
           <h5 class="card-title">${movie.title}</h5>
           <p class="card-text">описание</p>
+        <div class="btns">  
           <a href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</a>
           <a href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>Просмотрено</a>
-        </div>
+          </div>
+          </div>
       </div>
 `
 
