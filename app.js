@@ -9,9 +9,38 @@ function randomInteger(min, max) {
     return Math.floor(rand)
   }
 
+  function getMoviesFromLocalStorage() {
+    const movies = localStorage.getItem('allMovies');
+    return movies ? JSON.parse(movies) : [];
+  }
+
+  function saveMoviesToLocalStorage(movies) {
+    localStorage.setItem('allMovies', JSON.stringify(movies));
+  }
+
+  let allMovies = getMoviesFromLocalStorage();
+
+  if (allMovies.length === 0) {
+    allMovies = [
+      { id: 1, title: 'Дракула Брэма Стокера', img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-6QE9dBnvT2N9CjHp2DZOAWKOLWCZMlppgexdIBbvWQ&s" },
+      { id: 2, title: 'Город Грехов', img: "https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/6025abef-078b-4385-9cec-8237194ed38e/600x900" },
+      { id: 3, title: 'Автостопом по галактике', img: "https://thumbs.dfs.ivi.ru/storage4/contents/3/a/7da3eac3e71e63c85b578305a86143.jpg" },
+      { id: 4, title: 'Завтрак у Тиффани', img: "https://thumbs.dfs.ivi.ru/storage8/contents/9/1/e225fa76749bff29a36d96e3401296.jpg" }
+    ];
+    saveMoviesToLocalStorage(allMovies); 
+  }
+
+  function getNextId() {
+    const maxId = allMovies.reduce((max, movie) => Math.max(max, movie.id), 0);
+    return maxId + 1;
+  }
+
 btn.addEventListener('click', () => {
     output.innerText = 'Выбираю ваш фильм...'
     setTimeout(() =>{
+        if(allMovies == undefined || allMovies.length === 0 ){
+           alert('Добавьте хотя бы 1 фильм..')
+        }
         const randomMovie =  allMovies[randomInteger(0, allMovies.length-1)]
         document.querySelector('#result').innerHTML = `
     <div class="card">
@@ -34,20 +63,21 @@ addBtn.addEventListener('click', () => {
     event.preventDefault();
     const name = addFilmName.value
     const url = addUrl.value
-    allMovies.push( {id:allMovies.length+1, title: name, img: url})
+    allMovies.push( {id:getNextId(), title: name, img: url})
     addFilmName.value = ''
     addUrl.value = ''
     render()
+    saveMoviesToLocalStorage(allMovies);
 })
 
 
 
-let allMovies = [
-    {id:1, title: 'Дракула Брэма Стокера', img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-6QE9dBnvT2N9CjHp2DZOAWKOLWCZMlppgexdIBbvWQ&s"},
-    {id:2, title: 'Город Грехов',  img: "https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/6025abef-078b-4385-9cec-8237194ed38e/600x900"},
-    {id:3, title: 'Автостопом по галактике',  img: "https://thumbs.dfs.ivi.ru/storage4/contents/3/a/7da3eac3e71e63c85b578305a86143.jpg"},
-    {id:4, title: 'Завтрак у Тиффани',  img: "https://thumbs.dfs.ivi.ru/storage8/contents/9/1/e225fa76749bff29a36d96e3401296.jpg"},
-]
+// let allMovies = [
+//     {id:1, title: 'Дракула Брэма Стокера', img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-6QE9dBnvT2N9CjHp2DZOAWKOLWCZMlppgexdIBbvWQ&s"},
+//     {id:2, title: 'Город Грехов',  img: "https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/6025abef-078b-4385-9cec-8237194ed38e/600x900"},
+//     {id:3, title: 'Автостопом по галактике',  img: "https://thumbs.dfs.ivi.ru/storage4/contents/3/a/7da3eac3e71e63c85b578305a86143.jpg"},
+//     {id:4, title: 'Завтрак у Тиффани',  img: "https://thumbs.dfs.ivi.ru/storage8/contents/9/1/e225fa76749bff29a36d96e3401296.jpg"},
+// ]
 
 
 const toHtml = movie => `
@@ -123,6 +153,7 @@ document.addEventListener('click',event =>{
             console.log('remove');
             allMovies = allMovies.filter( f => f.id !== id)
             render()
+            saveMoviesToLocalStorage(allMovies); 
         }).catch( () => {
             console.log('Cancel');
         })
