@@ -16,45 +16,58 @@ function randomInteger(min, max) {
 btn.addEventListener('click', () => {
     output.innerText = 'Выбираю ваш фильм...'
     setTimeout(() =>{
-        const films = document.querySelectorAll('.card'); 
-        const randomNumber =  randomInteger(0, films.length-1)
-        console.log(films.length);
-        const selectedFilmHTML = films[randomNumber];
-        const filmName = selectedFilmHTML.querySelector('.card-title').innerText;
-        const filmImageSrc = selectedFilmHTML .querySelector('img').src;
-        output.innerText = filmName;
-        outputImage.innerHTML = `<img src="${filmImageSrc}" alt="${filmName}" />`;  
-}, 500)
+        // const films = document.querySelectorAll('.card'); 
+        // const randomNumber =  randomInteger(0, films.length-1)
+        const randomNumber =  randomInteger(0, allMovies.length-1)
+        // console.log(films.length);
+        console.log(allMovies.length);
+        // const selectedFilmHTML = films[randomNumber];
+        const movie = allMovies[randomNumber];
+        console.log(movie);
+        const html =  toChosenHtml(movie)
+        document.querySelector('#result').innerHTML = html
+        // const filmName = selectedFilmHTML.querySelector('.card-title').innerText;
+        // const filmImageSrc = selectedFilmHTML .querySelector('img').src;
+        // output.innerText = filmName;
+        // outputImage.innerHTML = `<img src="${filmImageSrc}" alt="${filmName}" />`; 
+        output.innerText = 'Сегодня смотрим этот шедевр:' 
+}, 1000)
+
 })
 
 addBtn.addEventListener('click', () => {
     event.preventDefault();
     const name = addFilmName.value
     const url = addUrl.value
-    createSlide(name, url)
+    // createSlide(name, url)
+    allMovies.push( {id:allMovies.length+1, title: name, img: url})
+    
+    render()
+    console.log(allMovies.length,allMovies);
     console.log(name, url);
 })
 
 function createSlide(filmName, url){
-    const newFilm = document.createElement('div')
-    newFilm.classList.add('film')
-    // filmContainer.appendChild(newFilm)
+    // const newFilm = document.createElement('div')
+    // newFilm.classList.add('film')
+    // // filmContainer.appendChild(newFilm)
 
-    const img = document.createElement('img')
-    img.src = url
-    img.alt = filmName
-    newFilm.appendChild(img)
+    // const img = document.createElement('img')
+    // img.src = url
+    // img.alt = filmName
+    // newFilm.appendChild(img)
 
-    const name = document.createElement('div')
-    name.classList.add('card-title')
-    name.innerText = filmName
-    newFilm.appendChild(name)
+    // const name = document.createElement('div')
+    // name.classList.add('card-title')
+    // name.innerText = filmName
+    // newFilm.appendChild(name)
 
-    if ( filmContainer.firstChild) {
-        filmContainer.insertBefore(newFilm, filmContainer.firstChild)
-    }else {
-        filmContainer.appendChild(newFilm)
-    }
+    // if ( filmContainer.firstChild) {
+    //     filmContainer.insertBefore(newFilm, filmContainer.firstChild)
+    // }else {
+    //     filmContainer.appendChild(newFilm)
+    // }
+  
 
 }
 
@@ -81,8 +94,21 @@ const toHtml = movie => `
       </div>
 `
 
+const toChosenHtml = movie => `
+<div class="card">
+        <img
+          src="${movie.img}"
+          alt="${movie.title}"
+        />
+        <div class="card-body">
+          <h5 class="card-title">${movie.title}</h5>
+          <p class="card-text">описание</p>
+          <a href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</a>
+      </div>
+`
+
 function render(){
-    const html = allMovies.map(movie => toHtml(movie)).join('')
+    const html = allMovies.map(movie => toHtml(movie)).reverse().join('')
     document.querySelector('#films').innerHTML = html
 }
 
@@ -109,12 +135,12 @@ const descriptionModal = $.descriptionModal ({
             //     descriptionModal.close()
             // }},
         ],
-        onOpen: function () {
-            console.log('Хук onOpen')
-        },
-        onClose: function() {
-            console.log('Хук onClose');
-        }
+        // onOpen: function () {
+        //     console.log('Хук onOpen')
+        // },
+        // onClose: function() {
+        //     console.log('Хук onClose');
+        // }
 })
 
 
