@@ -167,17 +167,23 @@ document.addEventListener('click',event =>{
         descriptionModal.open()
     }else if(btnType === 'viewed'){
         $.viewed({
-            title: 'Удалить из рандомайзера?',
-            content: `<p> Вы удаляете: <strong> ${movie.title} </strong> </p>`
+            title: 'Добавить в просмотренное?',
+            content: `<p> Вы добавляете: <strong> ${movie.title} </strong> в просмотренные </p>`
         }).then( ()=> {
-            console.log('remove');
-            allMovies = allMovies.filter( f => f.id !== id)
-            render()
-            saveMoviesToLocalStorage(allMovies); 
+            console.log('Добавлено в просмотренные');
             saveWatchedMovies(movie)
+            
+           return $.viewed({
+              title: 'Удалить?',
+              content: `<p> Вы удаляете: <strong> ${movie.title} </strong> из текущего списка</p>`
+            })
+          }).then( ()=> {
+              console.log('Удалено из текущего списка');
+              allMovies = allMovies.filter( f => f.id !== id)
+              render()
+              saveMoviesToLocalStorage(allMovies); 
         }).catch( () => {
             console.log('Cancel');
         })
-    
     }
 })

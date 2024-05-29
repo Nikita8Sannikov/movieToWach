@@ -6,7 +6,7 @@ $.viewed = function(options){
             width: '400px',
             content: options.content,
             onClose() {
-                modal.destroy()
+                viewedModal.destroy()
             },
             footerButtons: [
                 {text:'Да', 
