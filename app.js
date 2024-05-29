@@ -191,9 +191,9 @@ document.addEventListener('click',event =>{
             allMovies = allMovies.filter( f => f.id !== id)
             render()
             saveMoviesToLocalStorage(allMovies); 
-            console.log('Cancel');
+      }).catch( () => {
+        console.log('Cancel');
       })
-            
         })
     }
 })
