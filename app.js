@@ -183,7 +183,17 @@ document.addEventListener('click',event =>{
               render()
               saveMoviesToLocalStorage(allMovies); 
         }).catch( () => {
+          return $.viewed({
+            title: 'Удалить?',
+            content: `<p> Вы удаляете: <strong> ${movie.title} </strong> из текущего списка</p>`
+          }).then( ()=> {
+            console.log('Удалено из текущего списка');
+            allMovies = allMovies.filter( f => f.id !== id)
+            render()
+            saveMoviesToLocalStorage(allMovies); 
             console.log('Cancel');
+      })
+            
         })
     }
 })

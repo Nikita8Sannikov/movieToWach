@@ -4,6 +4,12 @@ function getWatchedMovies() {
 }
 let watchedMovies = getWatchedMovies()
 
+// function removeWatchedMovie(movieId) {
+//   let watchedMovies = getWatchedMovies();
+//   watchedMovies = watchedMovies.filter(movie => movie.id !== movieId);
+//   localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
+// }
+
 const toHtml = (movie) => `
 <div class="card">
     <img
