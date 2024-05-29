@@ -20,6 +20,23 @@ function randomInteger(min, max) {
 
   let allMovies = getMoviesFromLocalStorage();
 
+  function getWatchedMovies() {
+    const movies = localStorage.getItem('watchedMovies');
+    return movies ? JSON.parse(movies) : [];
+  }
+
+  function saveWatchedMovies(movie){
+    let watchedMovies = getWatchedMovies()
+    watchedMovies.push(movie)
+    localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
+  }
+
+  // const watchedMovies = getWatchedMovies();
+  // window.addEventListener('storage', event => {
+  //   console.log(event);
+  //   })
+
+
   if (allMovies.length === 0) {
     allMovies = [
       { id: 1, title: 'Дракула Брэма Стокера', img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-6QE9dBnvT2N9CjHp2DZOAWKOLWCZMlppgexdIBbvWQ&s" },
@@ -51,7 +68,7 @@ btn.addEventListener('click', () => {
         <div class="card-body">
           <h5 class="card-title">${randomMovie.title}</h5>
           <p class="card-text">описание</p>
-          <a href="#" class="btn btn-primary" data-btn ="description" data-id = ${randomMovie.id}>Описание</a>
+          <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${randomMovie.id}>Описание</button>
       </div>
         `
         output.innerText = 'Сегодня смотрим этот шедевр:' 
@@ -90,8 +107,8 @@ const toHtml = movie => `
           <h5 class="card-title">${movie.title}</h5>
           <p class="card-text">описание</p>
         <div class="btns">  
-          <a href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</a>
-          <a href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>Просмотрено</a>
+          <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</button>
+          <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>Просмотрено</button>
           </div>
           </div>
       </div>
@@ -135,6 +152,9 @@ const descriptionModal = $.descriptionModal ({
 
 
 document.addEventListener('click',event =>{
+    if (event.target.tagName === 'A') {
+    return;
+  }
     event.preventDefault()
     const btnType = event.target.dataset.btn
     const id = +event.target.dataset.id
@@ -154,6 +174,7 @@ document.addEventListener('click',event =>{
             allMovies = allMovies.filter( f => f.id !== id)
             render()
             saveMoviesToLocalStorage(allMovies); 
+            saveWatchedMovies(movie)
         }).catch( () => {
             console.log('Cancel');
         })
