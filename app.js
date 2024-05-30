@@ -27,7 +27,9 @@ function randomInteger(min, max) {
 
   function saveWatchedMovies(movie){
     let watchedMovies = getWatchedMovies()
-    watchedMovies.push(movie)
+    // watchedMovies.push(movie)
+    // getNextId(watchedMovies)
+    watchedMovies.push( {id:getNextId(watchedMovies), title: movie.title, img: movie.img})
     localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
   }
 
@@ -47,8 +49,8 @@ function randomInteger(min, max) {
     saveMoviesToLocalStorage(allMovies); 
   }
 
-  function getNextId() {
-    const maxId = allMovies.reduce((max, movie) => Math.max(max, movie.id), 0);
+  function getNextId(films) {
+    const maxId = films.reduce((max, movie) => Math.max(max, movie.id), 0);
     return maxId + 1;
   }
 
@@ -80,7 +82,7 @@ addBtn.addEventListener('click', () => {
     event.preventDefault();
     const name = addFilmName.value
     const url = addUrl.value
-    allMovies.push( {id:getNextId(), title: name, img: url})
+    allMovies.push( {id:getNextId(allMovies), title: name, img: url})
     addFilmName.value = ''
     addUrl.value = ''
     render()
@@ -182,6 +184,8 @@ document.addEventListener('click',event =>{
               allMovies = allMovies.filter( f => f.id !== id)
               render()
               saveMoviesToLocalStorage(allMovies); 
+        }).catch( () => {
+          console.log('Cancel');
         }).catch( () => {
           return $.viewed({
             title: 'Удалить?',
