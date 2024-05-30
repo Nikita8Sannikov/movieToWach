@@ -201,3 +201,34 @@ document.addEventListener('click',event =>{
         })
     }
 })
+
+
+const search = document.querySelector('.search')
+const searchBtn = document.querySelector('.submit')
+const result = document.getElementById('filter-results')
+
+function filter(val,filmList){
+  if (!val) return [];
+  return filmList.filter(el => el.title.toLowerCase().substring(0, val.length) === val.toLowerCase())
+}
+
+function renderFilmList(list=[], $el){
+	$el.innerHTML='';
+  list.forEach(movie=>{
+    let new_$el = document.createElement('div')
+    new_$el.classList.add('card');
+    new_$el.innerHTML=`
+        <img
+          src="${movie.img}"
+          alt="${movie.title}"
+        />
+        <div class="card-body">
+          <h5 class="card-title">${movie.title}</h5>
+          <p class="card-text">описание</p>
+          <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</button>
+        `
+    $el.appendChild(new_$el)
+  })
+ 
+}
+search.addEventListener('input',event=>renderFilmList(filter(event.target.value,getMoviesFromLocalStorage()),result))

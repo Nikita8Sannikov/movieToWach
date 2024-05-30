@@ -139,3 +139,9 @@
     margin-left: 5px;
     border-width:1px;
 }
+#filter-results{
+    display: flex;
+}
+.search-area{
+    margin-top: 10px;
+}
