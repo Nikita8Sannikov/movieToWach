@@ -197,6 +197,7 @@ document.addEventListener('click',event =>{
             render()
             saveMoviesToLocalStorage(allMovies); 
             renderFilmList(filter( search.value,getMoviesFromLocalStorage()),result)
+      }).catch(() => {
         console.log('Cancel');
       })
         })
