@@ -179,13 +179,14 @@ document.addEventListener('click',event =>{
               title: 'Удалить?',
               content: `<p> Вы удаляете: <strong> ${movie.title} </strong> из текущего списка</p>`
             })
-          }).then( ()=> {
+          .then( ()=> {
               console.log('Удалено из текущего списка');
               allMovies = allMovies.filter( f => f.id !== id)
               render()
               saveMoviesToLocalStorage(allMovies); 
         }).catch( () => {
           console.log('Cancel');
+        })
         }).catch( () => {
           return $.viewed({
             title: 'Удалить?',
@@ -195,7 +196,7 @@ document.addEventListener('click',event =>{
             allMovies = allMovies.filter( f => f.id !== id)
             render()
             saveMoviesToLocalStorage(allMovies); 
-      }).catch( () => {
+            renderFilmList(filter( search.value,getMoviesFromLocalStorage()),result)
         console.log('Cancel');
       })
         })
@@ -226,6 +227,7 @@ function renderFilmList(list=[], $el){
           <h5 class="card-title">${movie.title}</h5>
           <p class="card-text">описание</p>
           <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</button>
+          <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>Просмотрено</button>
         `
     $el.appendChild(new_$el)
   })
