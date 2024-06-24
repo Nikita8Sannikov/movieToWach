@@ -6,11 +6,14 @@ const addKINOPOISKUrl = document.getElementById('text3');
 const addBtn = document.querySelector('.add-button');
 const addKinopoiskBtn = document.querySelector('.add-kinopoisk-button');
 
+//Сама суть рандомайза
 function randomInteger(min, max) {
     let rand = min + Math.random() * (max + 1 - min);
     return Math.floor(rand)
   }
 
+//Блок Local Storage'а
+//--------------------------------------------------------------
   function getMoviesFromLocalStorage() {
     const movies = localStorage.getItem('allMovies');
     return movies ? JSON.parse(movies) : [];
@@ -50,12 +53,15 @@ function randomInteger(min, max) {
     ];
     saveMoviesToLocalStorage(allMovies); 
   }
+//----------------------------------------------------
 
+//Формируем уникальный айдишник для новых фильмов
   function getNextId(films) {
     const maxId = films.reduce((max, movie) => Math.max(max, movie.id), 0);
     return maxId + 1;
   }
 
+//Кнопка рандомайза
 btn.addEventListener('click', () => {
     output.innerText = 'Выбираю ваш фильм...'
     setTimeout(() =>{
@@ -77,9 +83,9 @@ btn.addEventListener('click', () => {
         `
         output.innerText = 'Сегодня смотрим этот шедевр:' 
 }, 1000)
-
 })
 
+//Кнопка добавления фильма по инпутам картинк и названия
 addBtn.addEventListener('click', () => {
     event.preventDefault();
     const name = addFilmName.value
@@ -101,6 +107,7 @@ addBtn.addEventListener('click', () => {
 // ]
 
 
+//Делаем из объекта карточку
 const toHtml = movie => `
 <div class="card">
         <img
@@ -119,6 +126,7 @@ const toHtml = movie => `
       </div>
 `
 
+//Для рендера списка
 function render(){
     const html = allMovies.map(movie => toHtml(movie)).reverse().join('')
     document.querySelector('#films').innerHTML = html
@@ -126,6 +134,7 @@ function render(){
 
 render()
 
+//Модалка описания фильма
 const descriptionModal = $.descriptionModal ({
         title: 'Описание фильма',
         closable: true,
@@ -155,7 +164,7 @@ const descriptionModal = $.descriptionModal ({
         // }
 })
 
-
+//Порядок появления и закрытия модалок
 document.addEventListener('click',event =>{
     if (event.target.tagName === 'A') {
     return;
@@ -207,7 +216,7 @@ document.addEventListener('click',event =>{
     }
 })
 
-
+//Поиск по фильмам
 const search = document.querySelector('.search')
 const searchBtn = document.querySelector('.submit')
 const result = document.getElementById('filter-results')
@@ -239,7 +248,7 @@ function renderFilmList(list=[], $el){
 }
 search.addEventListener('input',event=>renderFilmList(filter(event.target.value,getMoviesFromLocalStorage()),result))
 
-
+//Блок добавления фильма по ссылке с кинопоиска
 addKinopoiskBtn.addEventListener('click', () => {
   event.preventDefault()
 
