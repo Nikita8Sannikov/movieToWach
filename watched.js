@@ -34,7 +34,7 @@ const toHtml = (movie) => `
 `
 
 function renderWatchedMovies(movies) {
-  const html = movies.map((movie) => toHtml(movie)).join("")
+  const html = movies.map((movie) => toHtml(movie)).reverse().join("")
   document.querySelector("#watched-films").innerHTML = html
 }
 
