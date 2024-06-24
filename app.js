@@ -300,3 +300,9 @@ fetch(urlWithParams, options)
 }
 })
 
+addMoreBtn = document.querySelector('.add-more')
+addFilmOptions = document.querySelector('.addFilmOptions')
+
+addMoreBtn.addEventListener('click', () =>{
+  addFilmOptions.classList.toggle('show');
+})

@@ -148,3 +148,15 @@
 .search-area{
     margin-top: 10px;
 }
+
+.clickable>p{
+    color: blue;
+    text-decoration: underline dotted blue;
+    cursor: pointer;
+}
+.addFilmOptions {
+    display: none;
+}
+.show {
+    display: block;
+}
