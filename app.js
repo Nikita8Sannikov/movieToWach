@@ -2,7 +2,9 @@ const output = document.querySelector('.output')
 const btn = document.querySelector('.button')
 const addFilmName = document.getElementById('text1');
 const addUrl = document.getElementById('text2');
+const addKINOPOISKUrl = document.getElementById('text3');
 const addBtn = document.querySelector('.add-button');
+const addKinopoiskBtn = document.querySelector('.add-kinopoisk-button');
 
 function randomInteger(min, max) {
     let rand = min + Math.random() * (max + 1 - min);
@@ -107,7 +109,7 @@ const toHtml = movie => `
         />
         <div class="card-body">
           <h5 class="card-title">${movie.title}</h5>
-          <p class="card-text">описание</p>
+          <p class="card-text">${movie.shortDescription ||'Описание'}  ${movie.year||''} ${movie.genres||''} ${movie.rating || ''}</p>
         <div class="btns">  
           <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</button>
           <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>Просмотрено</button>
@@ -164,7 +166,7 @@ document.addEventListener('click',event =>{
 
     if(btnType === 'description') {
         descriptionModal.setContent(`
-            <p> <strong> ${movie.title} </strong> </br> Some description</p>
+            <p> <strong> ${movie.title} </strong> </br> ${movie.description}</p>
         `)
         descriptionModal.open()
     }else if(btnType === 'viewed'){
@@ -226,7 +228,7 @@ function renderFilmList(list=[], $el){
         />
         <div class="card-body">
           <h5 class="card-title">${movie.title}</h5>
-          <p class="card-text">описание</p>
+          <p class="card-text">${movie.shortDescription || 'Описание'} ${movie.year || ''} ${movie.genres} ${movie.rating} </p>
           <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</button>
           <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>Просмотрено</button>
         `
@@ -235,3 +237,57 @@ function renderFilmList(list=[], $el){
  
 }
 search.addEventListener('input',event=>renderFilmList(filter(event.target.value,getMoviesFromLocalStorage()),result))
+
+
+addKinopoiskBtn.addEventListener('click', () => {
+
+  // URL API для поиска фильма 
+const apiUrl = 'https://api.kinopoisk.dev/v1.4/movie';
+
+// API ключ
+const apiKey = '1QSQYSZ-PNCMBA2-JX6Q2NJ-24SE8J7';
+
+const options = {
+  method: 'GET', 
+  headers: {
+   'X-API-KEY': '1QSQYSZ-PNCMBA2-JX6Q2NJ-24SE8J7',
+  }
+};
+
+
+// const movieId = '666'; 
+const KINOPOISK_id = addKINOPOISKUrl.value.split('/').splice(-2, 1)
+const urlWithParams = `${apiUrl}/${KINOPOISK_id}`;
+
+
+fetch(urlWithParams, options)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json(); 
+  })
+  .then(data => {
+    console.log(data); 
+    console.log(data.name); 
+    console.log(data.shortDescription); 
+    console.log(data.description); 
+    console.log(data.year); 
+    console.log(data.poster.previewUrl); 
+    console.log(data.genres.map(genre => genre.name).join(', ')); 
+    console.log(data.rating.kp); 
+
+    allMovies.push( {id:getNextId(allMovies), title: data.name, img: data.poster.previewUrl, shortDescription: data.shortDescription, description: data.description, year: data.year, genres: data.genres.map(genre => genre.name).join(', '), rating: data.rating.kp})
+
+  })
+  .catch(error => {
+    console.error('Ошибка запроса:', error); 
+  });
+
+ 
+  addKINOPOISKUrl.value = ''
+  render()
+  saveMoviesToLocalStorage(allMovies);
+
+})
+
