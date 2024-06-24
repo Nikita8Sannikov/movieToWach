@@ -108,8 +108,8 @@ const toHtml = movie => `
           alt="${movie.title}"
         />
         <div class="card-body">
-          <h5 class="card-title">${movie.title}</h5>
-          <p class="card-text">${movie.shortDescription ||'Описание'}  ${movie.year||''} ${movie.genres||''} ${movie.rating || ''}</p>
+          <h5 class="card-title">${movie.title} ${`(${movie.year})`||''}</h5>
+          <p class="card-text">${movie.shortDescription ||'Описание'} </br>  <i>${movie.genres||''}</i> </br> <strong>${movie.rating || ''} </strong ></p>
         <div class="btns">  
           <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</button>
           <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>Просмотрено</button>
@@ -277,7 +277,7 @@ fetch(urlWithParams, options)
     // console.log(data.genres.map(genre => genre.name).join(', ')); 
     // console.log(data.rating.kp); 
 
-    allMovies.push( {id:getNextId(allMovies), title: data.name, img: data.poster.previewUrl, shortDescription: data.shortDescription, description: data.description, year: data.year, genres: data.genres.map(genre => genre.name).join(', '), rating: data.rating.kp})
+    allMovies.push( {id:getNextId(allMovies), title: data.name, img: data.poster.previewUrl, shortDescription: data.shortDescription, description: data.description, year: data.year, genres: data.genres.map(genre => genre.name).join(', '), rating: data.rating.kp.toFixed(2)})
     render()
 
   })
