@@ -269,15 +269,16 @@ fetch(urlWithParams, options)
   })
   .then(data => {
     console.log(data); 
-    console.log(data.name); 
-    console.log(data.shortDescription); 
-    console.log(data.description); 
-    console.log(data.year); 
-    console.log(data.poster.previewUrl); 
-    console.log(data.genres.map(genre => genre.name).join(', ')); 
-    console.log(data.rating.kp); 
+    // console.log(data.name); 
+    // console.log(data.shortDescription); 
+    // console.log(data.description); 
+    // console.log(data.year); 
+    // console.log(data.poster.previewUrl); 
+    // console.log(data.genres.map(genre => genre.name).join(', ')); 
+    // console.log(data.rating.kp); 
 
     allMovies.push( {id:getNextId(allMovies), title: data.name, img: data.poster.previewUrl, shortDescription: data.shortDescription, description: data.description, year: data.year, genres: data.genres.map(genre => genre.name).join(', '), rating: data.rating.kp})
+    render()
 
   })
   .catch(error => {
@@ -286,7 +287,7 @@ fetch(urlWithParams, options)
 
  
   addKINOPOISKUrl.value = ''
-  render()
+  
   saveMoviesToLocalStorage(allMovies);
 
 })
