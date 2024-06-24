@@ -34,7 +34,7 @@ function randomInteger(min, max) {
     let watchedMovies = getWatchedMovies()
     // watchedMovies.push(movie)
     // getNextId(watchedMovies)
-    watchedMovies.push( {id:getNextId(watchedMovies), title: movie.title, img: movie.img})
+    watchedMovies.push( {id:getNextId(watchedMovies), title: movie.title, img: movie.img, shortDescription: movie.shortDescription, description: movie.description, year: movie.year, genres: movie.genres, rating: movie.rating})
     localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
   }
 
@@ -76,8 +76,8 @@ btn.addEventListener('click', () => {
           alt="${randomMovie.title}"
         />
         <div class="card-body">
-          <h5 class="card-title">${randomMovie.title}</h5>
-          <p class="card-text">описание</p>
+          <h5 class="card-title">${randomMovie.title} ${(randomMovie.year || '') && `(${randomMovie.year})`}</h5>
+          <p class="card-text">${randomMovie.shortDescription ||'Описание'} </br>  <i>${randomMovie.genres||''}</i> </br> <strong>${randomMovie.rating || ''} </strong ></p>
           <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${randomMovie.id}>Описание</button>
       </div>
         `

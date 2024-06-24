@@ -25,8 +25,8 @@ const toHtml = (movie) => `
         alt="${movie.title}"
     />
     <div class="card-body">
-        <h5 class="card-title">${movie.title}</h5>
-        <p class="card-text">описание</p>
+        <h5 class="card-title">${movie.title} ${(movie.year || '') && `(${movie.year})`}</h5>
+        <p class="card-text">${movie.shortDescription ||'Описание'} </br>  <i>${movie.genres||''}</i> </br> <strong>${movie.rating || ''} </strong ></p>
         <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</button>
         <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>Удалить</button>
     </div>
@@ -53,7 +53,7 @@ const descriptionModal = $.descriptionModal({
       handler() {
         console.log("primary btn clicked")
         descriptionModal.close()
-      },
+      }
     },
   ],
 })
@@ -69,7 +69,7 @@ document.addEventListener("click", (event) => {
 
   if (btnType === "description") {
     descriptionModal.setContent(`
-        <p> <strong> ${movie.title} </strong> </br> Some description</p>
+        <p> <strong> ${movie.title} </strong> </br> ${movie.description || ''}</p>
     `)
     descriptionModal.open()
   }else if(btnType === 'viewed'){
