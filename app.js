@@ -108,7 +108,8 @@ const toHtml = movie => `
           alt="${movie.title}"
         />
         <div class="card-body">
-          <h5 class="card-title">${movie.title} ${`(${movie.year})`||''}</h5>
+          <h5 class="card-title">${movie.title} ${(movie.year || '') && `(${movie.year})`}
+</h5>
           <p class="card-text">${movie.shortDescription ||'Описание'} </br>  <i>${movie.genres||''}</i> </br> <strong>${movie.rating || ''} </strong ></p>
         <div class="btns">  
           <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</button>
@@ -166,7 +167,7 @@ document.addEventListener('click',event =>{
 
     if(btnType === 'description') {
         descriptionModal.setContent(`
-            <p> <strong> ${movie.title} </strong> </br> ${movie.description}</p>
+            <p> <strong> ${movie.title} </strong> </br> ${movie.description || ''}</p>
         `)
         descriptionModal.open()
     }else if(btnType === 'viewed'){
@@ -240,6 +241,7 @@ search.addEventListener('input',event=>renderFilmList(filter(event.target.value,
 
 
 addKinopoiskBtn.addEventListener('click', () => {
+  event.preventDefault()
 
   // URL API для поиска фильма 
 const apiUrl = 'https://api.kinopoisk.dev/v1.4/movie';
@@ -259,7 +261,7 @@ const options = {
 const KINOPOISK_id = addKINOPOISKUrl.value.split('/').splice(-2, 1)
 const urlWithParams = `${apiUrl}/${KINOPOISK_id}`;
 
-
+if(addKINOPOISKUrl.value){
 fetch(urlWithParams, options)
   .then(response => {
     if (!response.ok) {
@@ -279,16 +281,13 @@ fetch(urlWithParams, options)
 
     allMovies.push( {id:getNextId(allMovies), title: data.name, img: data.poster.previewUrl, shortDescription: data.shortDescription, description: data.description, year: data.year, genres: data.genres.map(genre => genre.name).join(', '), rating: data.rating.kp.toFixed(2)})
     render()
-
+    saveMoviesToLocalStorage(allMovies);
   })
   .catch(error => {
     console.error('Ошибка запроса:', error); 
   });
 
- 
   addKINOPOISKUrl.value = ''
-  
-  saveMoviesToLocalStorage(allMovies);
-
+}
 })
 
