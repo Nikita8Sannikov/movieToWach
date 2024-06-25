@@ -144,10 +144,11 @@
 }
 #filter-results{
     display: flex;
+    justify-content: center;
 }
-.search-area{
+/* .search-area{
     margin-top: 10px;
-}
+} */
 
 .clickable>p{
     color: blue;
@@ -159,4 +160,32 @@
 }
 .show {
     display: block;
+}
+.add-film{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.page {
+    display: none;
+}
+.page.show {
+    display: block;
+}
+
+#navigation{
+    position: fixed ;
+    z-index: 100;
+    top: 0;
+    width: 100%;
+    background-color: #333;
+    padding: 10px 0;
+    text-align: center;
+}
+.content{
+padding-top: 50px;
+}
+.addFilmOptions{
+    margin: 10px;
 }

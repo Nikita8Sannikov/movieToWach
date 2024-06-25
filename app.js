@@ -117,7 +117,7 @@ const toHtml = movie => `
         <div class="card-body">
           <h5 class="card-title">${movie.title} ${(movie.year || '') && `(${movie.year})`}
 </h5>
-          <p class="card-text">${movie.shortDescription ||'Описание'} </br>  <i>${movie.genres||''}</i> </br> <strong>${movie.rating || ''} </strong ></p>
+          <p class="card-text">${movie.shortDescription ||'Описание по кнопке ниже &#8595'} </br>  <i>${movie.genres||''}</i> </br> <strong>${movie.rating || ''} </strong ></p>
         <div class="btns">  
           <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</button>
           <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>Просмотрено</button>
@@ -306,3 +306,15 @@ addFilmOptions = document.querySelector('.addFilmOptions')
 addMoreBtn.addEventListener('click', () =>{
   addFilmOptions.classList.toggle('show');
 })
+
+
+//nav toggle
+function showPage(pageId){
+  const pages = document.querySelectorAll('.page');
+  pages.forEach(page => page.classList.remove('show'));
+
+
+  const selectedPage = document.getElementById(pageId);
+  selectedPage.classList.add('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}

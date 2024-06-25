@@ -18,7 +18,7 @@ function saveWatchedMovies(movie){
 //   localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
 // }
 
-const toHtml = (movie) => `
+const toWatchedHtml = (movie) => `
 <div class="card">
     <img
         src="${movie.img}"
@@ -34,7 +34,7 @@ const toHtml = (movie) => `
 `
 
 function renderWatchedMovies(movies) {
-  const html = movies.map((movie) => toHtml(movie)).reverse().join("")
+  const html = movies.map((movie) => toWatchedHtml(movie)).reverse().join("")
   document.querySelector("#watched-films").innerHTML = html
 }
 
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderWatchedMovies(watchedMovies)
 })
 
-const descriptionModal = $.descriptionModal({
+const descriptionWatchedModal = $.descriptionModal({
   title: "Описание фильма",
   closable: true,
   width: "400px",
@@ -52,7 +52,7 @@ const descriptionModal = $.descriptionModal({
       type: "primary", //Класс бутстрапа, потом заменю на свой
       handler() {
         console.log("primary btn clicked")
-        descriptionModal.close()
+        descriptionWatchedModal.close()
       }
     },
   ],
@@ -68,10 +68,10 @@ document.addEventListener("click", (event) => {
   const movie = watchedMovies.find((f) => f.id === id)
 
   if (btnType === "description") {
-    descriptionModal.setContent(`
+    descriptionWatchedModal.setContent(`
         <p> <strong> ${movie.title} </strong> </br> ${movie.description || ''}</p>
     `)
-    descriptionModal.open()
+    descriptionWatchedModal.open()
   }else if(btnType === 'viewed'){
     $.viewed({
         title: 'Удалить из просмотренного?',
