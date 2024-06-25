@@ -42,47 +42,51 @@ document.addEventListener("DOMContentLoaded", () => {
   renderWatchedMovies(watchedMovies)
 })
 
-const descriptionWatchedModal = $.descriptionModal({
-  title: "Описание фильма",
-  closable: true,
-  width: "400px",
-  footerButtons: [
-    {
-      text: "OK",
-      type: "primary", //Класс бутстрапа, потом заменю на свой
-      handler() {
-        console.log("primary btn clicked")
-        descriptionWatchedModal.close()
-      }
-    },
-  ],
-})
+// const descriptionWatchedModal = $.descriptionModal({
+//   title: "Описание фильма",
+//   closable: true,
+//   width: "400px",
+//   footerButtons: [
+//     {
+//       text: "OK",
+//       type: "primary", //Класс бутстрапа, потом заменю на свой
+//       handler() {
+//         console.log("primary btn clicked")
+//         descriptionWatchedModal.close()
+//       }
+//     },
+//   ],
+// })
 
-document.addEventListener("click", (event) => {
-  if (event.target.tagName === "A") {
-    return
-  }
-  event.preventDefault()
-  const btnType = event.target.dataset.btn
-  const id = +event.target.dataset.id
-  const movie = watchedMovies.find((f) => f.id === id)
+// document.addEventListener("click", (event) => {
+//   const currentPage = document.querySelector('.page.show').getAttribute('data-page');
+//   console.log('Current page:', currentPage);
+//   if (event.target.tagName === "A") {
+//     return
+//   }
 
-  if (btnType === "description") {
-    descriptionWatchedModal.setContent(`
-        <p> <strong> ${movie.title} </strong> </br> ${movie.description || ''}</p>
-    `)
-    descriptionWatchedModal.open()
-  }else if(btnType === 'viewed'){
-    $.viewed({
-        title: 'Удалить из просмотренного?',
-        content: `<p> Вы удаляете: <strong> ${movie.title} </strong> из просмотренных </p>`
-    }).then( ()=> {
-      console.log('Удалено из текущего списка');
-      watchedMovies = watchedMovies.filter( f => f.id !== id)
-      renderWatchedMovies(watchedMovies)
-      saveWatchedMovies(watchedMovies )
-      }).catch( () => {
-    console.log('Cancel');
-    })
-}
-})
+//   event.preventDefault()
+//   const btnType = event.target.dataset.btn
+//   const id = +event.target.dataset.id
+//   const movie = watchedMovies.find((f) => f.id === id)
+
+//   if (btnType === "description") {
+//     console.log(movie.title);
+//     descriptionWatchedModal.setContent(`
+//         <p> <strong> ${movie.title} </strong> </br> ${movie.description || ''}</p>
+//     `)
+//     descriptionWatchedModal.open()
+//   }else if(btnType === 'viewed'){
+//     $.viewed({
+//         title: 'Удалить из просмотренного?',
+//         content: `<p> Вы удаляете: <strong> ${movie.title} </strong> из просмотренных </p>`
+//     }).then( ()=> {
+//       console.log('Удалено из текущего списка');
+//       watchedMovies = watchedMovies.filter( f => f.id !== id)
+//       renderWatchedMovies(watchedMovies)
+//       saveWatchedMovies(watchedMovies )
+//       }).catch( () => {
+//     console.log('Cancel');
+//     })
+// }
+// })

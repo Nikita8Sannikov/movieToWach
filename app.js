@@ -118,10 +118,10 @@ const toHtml = movie => `
           <h5 class="card-title">${movie.title} ${(movie.year || '') && `(${movie.year})`}
 </h5>
           <p class="card-text">${movie.shortDescription ||'Описание по кнопке ниже &#8595'} </br>  <i>${movie.genres||''}</i> </br> <strong>${movie.rating || ''} </strong ></p>
-        <div class="btns">  
+         
           <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</button>
           <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>Просмотрено</button>
-          </div>
+          
           </div>
       </div>
 `
@@ -166,9 +166,13 @@ const descriptionModal = $.descriptionModal ({
 
 //Порядок появления и закрытия модалок
 document.addEventListener('click',event =>{
+  const currentPage = document.querySelector('.page.show').getAttribute('data-page');
+            // console.log('Current page:', currentPage);
+
+
     if (event.target.tagName === 'A') {
     return;
-  }
+  }else if(currentPage === 'titles'){
     event.preventDefault()
     const btnType = event.target.dataset.btn
     const id = +event.target.dataset.id
@@ -214,6 +218,34 @@ document.addEventListener('click',event =>{
       })
         })
     }
+  } else if (currentPage === 'watchedTitles'){
+    event.preventDefault()
+    const btnType = event.target.dataset.btn
+    const id = +event.target.dataset.id
+    const movie = watchedMovies.find((f) => f.id === id)
+  
+    if (btnType === "description") {
+      console.log(movie.title);
+      descriptionModal.setContent(`
+          <p> <strong> ${movie.title} </strong> </br> ${movie.description || ''}</p>
+      `)
+      descriptionModal.open()
+    }else if(btnType === 'viewed'){
+      $.viewed({
+          title: 'Удалить из просмотренного?',
+          content: `<p> Вы удаляете: <strong> ${movie.title} </strong> из просмотренных </p>`
+      }).then( ()=> {
+        console.log('Удалено из текущего списка');
+        watchedMovies = watchedMovies.filter( f => f.id !== id)
+        renderWatchedMovies(watchedMovies)
+        saveWatchedMovies(watchedMovies )
+        }).catch( () => {
+      console.log('Cancel');
+      })
+  }
+  }
+
+  
 })
 
 //Поиск по фильмам
@@ -316,5 +348,5 @@ function showPage(pageId){
 
   const selectedPage = document.getElementById(pageId);
   selectedPage.classList.add('show');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: 'instant' });
 }
