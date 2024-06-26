@@ -1,46 +1,47 @@
-function getWatchedMovies() {
-  const movies = localStorage.getItem("watchedMovies")
-  return movies ? JSON.parse(movies) : []
-}
-let watchedMovies = getWatchedMovies()
+// function getWatchedMovies() {
+//   const movies = localStorage.getItem("watchedMovies")
+//   return movies ? JSON.parse(movies) : []
+// }
+// let watchedMovies = getWatchedMovies()
 
-function saveWatchedMovies(movie){
-  let watchedMovies = getWatchedMovies()
-  // watchedMovies.push(movie)
-  // getNextId(watchedMovies)
-  // watchedMovies.push( {id:getNextId(watchedMovies), title: movie.title, img: movie.img})
-  localStorage.setItem('watchedMovies', JSON.stringify(movie));
-}
-
-// function removeWatchedMovie(movieId) {
-//   let watchedMovies = getWatchedMovies();
-//   watchedMovies = watchedMovies.filter(movie => movie.id !== movieId);
-//   localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
+// function saveWatchedMovies(movie){
+//   let watchedMovies = getWatchedMovies()
+//   // watchedMovies.push(movie)
+//   // getNextId(watchedMovies)
+//   // watchedMovies.push( {id:getNextId(watchedMovies), title: movie.title, img: movie.img})
+//   localStorage.setItem('watchedMovies', JSON.stringify(movie));
 // }
 
-const toWatchedHtml = (movie) => `
-<div class="card">
-    <img
-        src="${movie.img}"
-        alt="${movie.title}"
-    />
-    <div class="card-body">
-        <h5 class="card-title">${movie.title} ${(movie.year || '') && `(${movie.year})`}</h5>
-        <p class="card-text">${movie.shortDescription ||'Описание'} </br>  <i>${movie.genres||''}</i> </br> <strong>${movie.rating || ''} </strong ></p>
-        <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</button>
-        <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>Удалить</button>
-    </div>
-</div>
-`
+// // function removeWatchedMovie(movieId) {
+// //   let watchedMovies = getWatchedMovies();
+// //   watchedMovies = watchedMovies.filter(movie => movie.id !== movieId);
+// //   localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
+// // }
 
-function renderWatchedMovies(movies) {
-  const html = movies.map((movie) => toWatchedHtml(movie)).reverse().join("")
-  document.querySelector("#watched-films").innerHTML = html
-}
+// const toWatchedHtml = (movie) => `
+// <div class="card">
+//     <img
+//         src="${movie.img}"
+//         alt="${movie.title}"
+//     />
+//     <div class="card-body">
+//         <h5 class="card-title">${movie.title} ${(movie.year || '') && `(${movie.year})`}</h5>
+//         <p class="card-text">${movie.shortDescription ||'Описание'} </br>  <i>${movie.genres||''}</i> </br> <strong>${movie.rating || ''} </strong ></p>
+//         <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</button>
+//         <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>Удалить</button>
+//     </div>
+// </div>
+// `
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderWatchedMovies(watchedMovies)
-})
+// function renderWatchedMovies(movies) {
+//   const html = movies.map((movie) => toWatchedHtml(movie)).reverse().join("")
+//   document.querySelector("#watched-films").innerHTML = html
+//   arrangeCards(-1700)
+// }
+
+// document.addEventListener("DOMContentLoaded", () => {
+//   renderWatchedMovies(watchedMovies)
+// })
 
 // const descriptionWatchedModal = $.descriptionModal({
 //   title: "Описание фильма",

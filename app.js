@@ -91,8 +91,8 @@ addBtn.addEventListener('click', () => {
     const name = addFilmName.value
     const url = addUrl.value
     allMovies.push( {id:getNextId(allMovies), title: name, img: url})
-    addFilmName.value = ''
-    addUrl.value = ''
+    // addFilmName.value = ''
+    // addUrl.value = ''
     render()
     saveMoviesToLocalStorage(allMovies);
 })
@@ -130,9 +130,43 @@ const toHtml = movie => `
 function render(){
     const html = allMovies.map(movie => toHtml(movie)).reverse().join('')
     document.querySelector('#films').innerHTML = html
+    arrangeCards('.card',100)
 }
 
 render()
+
+
+function arrangeCards(className, y=0) {
+  const cards = document.querySelectorAll(className);
+  const cardsPerRow = 5;
+  const cardWidth = 350; // ширина карточки + расстояние между карточками
+  const cardHeight = 600; // высота карточки
+
+  console.log('Total cards:', cards.length);
+
+  cards.forEach((card, index) => {
+    const rowIndex = Math.floor(index / cardsPerRow);
+    const positionInRow = index % cardsPerRow;
+    let offsetX, offsetY;
+
+    // Расчет позиции X
+    if (positionInRow === 0) {
+      offsetX = 0;
+    } else if (positionInRow % 2 === 1) {
+      offsetX = -Math.ceil(positionInRow / 2) * cardWidth;
+    } else {
+      offsetX = Math.ceil(positionInRow / 2) * cardWidth;
+    }
+
+    // Увеличим коэффициент для более глубокой дуги
+    offsetY = rowIndex * (cardHeight + 20) - Math.abs(offsetX) * 0.3;
+
+    console.log(`Card ${index}: rowIndex=${rowIndex}, positionInRow=${positionInRow}, offsetX=${offsetX}, offsetY=${offsetY}`);
+
+    card.style.transform = `translate(${offsetX+800}px, ${offsetY+y}px)`;
+  });
+}
+
 
 //Модалка описания фильма
 const descriptionModal = $.descriptionModal ({
@@ -350,3 +384,52 @@ function showPage(pageId){
   selectedPage.classList.add('show');
   window.scrollTo({ top: 0, behavior: 'instant' });
 }
+
+
+
+
+//watched Section
+function getWatchedMovies() {
+  const movies = localStorage.getItem("watchedMovies")
+  return movies ? JSON.parse(movies) : []
+}
+let watchedMovies = getWatchedMovies()
+
+function saveWatchedMovies(movie){
+  let watchedMovies = getWatchedMovies()
+  // watchedMovies.push(movie)
+  // getNextId(watchedMovies)
+  // watchedMovies.push( {id:getNextId(watchedMovies), title: movie.title, img: movie.img})
+  localStorage.setItem('watchedMovies', JSON.stringify(movie));
+}
+
+// function removeWatchedMovie(movieId) {
+//   let watchedMovies = getWatchedMovies();
+//   watchedMovies = watchedMovies.filter(movie => movie.id !== movieId);
+//   localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
+// }
+
+const toWatchedHtml = (movie) => `
+<div class="watchedCard">
+    <img
+        src="${movie.img}"
+        alt="${movie.title}"
+    />
+    <div class="card-body">
+        <h5 class="card-title">${movie.title} ${(movie.year || '') && `(${movie.year})`}</h5>
+        <p class="card-text">${movie.shortDescription ||'Описание'} </br>  <i>${movie.genres||''}</i> </br> <strong>${movie.rating || ''} </strong ></p>
+        <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</button>
+        <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>Удалить</button>
+    </div>
+</div>
+`
+
+function renderWatchedMovies(movies) {
+  const html = movies.map((movie) => toWatchedHtml(movie)).reverse().join("")
+  document.querySelector("#watched-films").innerHTML = html
+  arrangeCards('.watchedCard', 200)
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderWatchedMovies(watchedMovies)
+})
