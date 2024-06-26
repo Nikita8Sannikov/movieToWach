@@ -1,47 +1,18 @@
-.film-container{
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    flex-wrap: wrap;
+*{
+    margin: 0;
+    padding: 0;
 }
-.card {
-    width: 30vh;
-    margin: 10px;
-    border: 1px solid #eee;
-    border-radius: 10px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.card>img{
-    width: 100%;
-}
-.card-body{
-    font-family: cursive, sans-serif ;
-    font-size: 10px;
-    /* font-weight: bold; */
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.card-text{
-    padding: 0 5px 0 5px;
-}
-.card-title {
-    word-wrap: break-word;
-}
-.result{
-    display: flex;
-    flex-direction: column;
-    font-family: cursive, sans-serif ;
-}
-#result{
-    display: flex;
-    justify-content: center;
 
+body {
+    font-family: 'Manrope', sans-serif;
+    background-color: #2C2C2E;
+    /* color: white; */
+    max-width: 1900px;
 }
+
+
+
+
 .output{
     display: flex;
     justify-content: center;
@@ -58,10 +29,7 @@
     font-size: 24px;
     font-weight: bold;
 }
-.button{
-    outline: none;
-    border: 1px solid #ecdede;
-}
+
 
 
 
@@ -146,9 +114,7 @@
     display: flex;
     justify-content: center;
 }
-/* .search-area{
-    margin-top: 10px;
-} */
+
 
 .clickable>p{
     color: blue;
@@ -161,11 +127,7 @@
 .show {
     display: block;
 }
-.add-film{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5px;
-}
+
 
 .page {
     display: none;
@@ -174,18 +136,163 @@
     display: block;
 }
 
-#navigation{
-    position: fixed ;
-    z-index: 100;
-    top: 0;
-    width: 100%;
-    background-color: #333;
-    padding: 10px 0;
-    text-align: center;
-}
-.content{
-padding-top: 50px;
-}
+
 .addFilmOptions{
     margin: 10px;
+}
+
+.header{
+    /* width: 100%; */
+    display: flex;
+    justify-content: space-between;
+    margin: 47px 42px;
+    align-items: center;
+}
+.logo-section{
+    display: flex;
+    align-items: center;
+}
+.logo{
+    display: flex;
+}
+
+.site-name{
+    margin-left: 15px;
+}
+.site-name>h1{
+    font-size: 40px;
+}
+.navigation-section{
+    margin-left: 80px;
+}
+.nav-button{
+    outline: none;
+    font-size: 20px;
+    border-radius: 5px;
+}
+.search-area>input{
+    font-size: 20px;
+    /* padding: 18px 172px; */
+    border-radius: 25px;
+    padding: 18px;
+    border: none;
+    outline: none;
+    width: 560px;
+}
+.content{
+    margin-top: 107px;
+    }
+.add-film{
+    display: flex;
+    justify-content: center;
+}
+.kinopoiskSection>input{
+    /* padding: 31px 341px; */
+    width:780px;
+    padding: 24px;
+    margin-right: 20px;
+    border-radius: 25px;
+    font-size: 29px;
+}
+.add-kinopoisk-button{
+    /* padding: 30px 117px; */
+    padding: 21px;
+    width:350px;
+    border-radius: 25px;
+    font-size: 29px;
+}
+
+.result{
+    display: flex;
+    /* flex-direction: column; */
+    font-family: cursive, sans-serif ;
+    justify-content: center;
+}
+.output-section{
+    margin-top: 45px;
+}
+.output-section>h3{
+    font-size: 90px;
+}
+#result{
+    display: flex;
+    justify-content: center;
+
+}
+
+
+
+.main-button{
+    display: flex;
+    justify-content: center; 
+    margin-top: 113px;
+}
+
+.button{
+    outline: none;
+    border: 1px solid #ecdede;
+    padding: 29px 144px;
+    font-size: 30px;
+    border-radius: 25px;
+    background-color: #B665E2;
+}
+
+.film-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+    margin-top: 50px;
+
+    position: relative;
+}
+
+.card {
+    width: 30vh;
+    margin: 10px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    transform-origin: bottom center;
+    transition: transform 0.3s;
+    position: absolute;
+}
+.card>img{
+    width: 100%;
+}
+.card-body{
+    font-family: cursive, sans-serif ;
+    font-size: 10px;
+    /* font-weight: bold; */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.card-text{
+    padding: 0 5px 0 5px;
+}
+.card-title {
+    word-wrap: break-word;
+}
+.watchedCard {
+    width: 30vh;
+    margin: 10px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    transform-origin: bottom center;
+    transition: transform 0.3s;
+    position: absolute;
+}
+.watchedCard>img{
+    width: 100%;
 }
