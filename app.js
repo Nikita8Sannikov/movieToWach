@@ -73,7 +73,7 @@ btn.addEventListener('click', () => {
         }
         const randomMovie =  allMovies[randomInteger(0, allMovies.length-1)]
         document.querySelector('#result').innerHTML = `
-    <div class="card">
+    <div class="card-random">
         <img
           src="${randomMovie.img}"
           alt="${randomMovie.title}"
@@ -81,7 +81,7 @@ btn.addEventListener('click', () => {
         <div class="card-body">
           <h5 class="card-title">${randomMovie.title} ${(randomMovie.year || '') && `(${randomMovie.year})`}</h5>
           <p class="card-text">${randomMovie.shortDescription ||'Описание'} </br>  <i>${randomMovie.genres||''}</i> </br> <strong>${randomMovie.rating || ''} </strong ></p>
-          <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${randomMovie.id}>Описание</button>
+          <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${randomMovie.id}>Подробнее</button>
       </div>
         `
         output.innerText = 'Сегодня смотрим этот шедевр:' 
@@ -121,10 +121,10 @@ const toHtml = movie => `
           <h5 class="card-title">${movie.title} ${(movie.year || '') && `(${movie.year})`}
 </h5>
           <p class="card-text">${movie.shortDescription ||'Описание по кнопке ниже &#8595'} </br>  <i>${movie.genres||''}</i> </br> <strong>${movie.rating || ''} </strong ></p>
-         
-          <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</button>
-          <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>Просмотрено</button>
-          
+          <div class="button-section">
+          <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Подробнее</button>
+          <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>(o)</button>
+          </div>
           </div>
       </div>
 `
@@ -300,7 +300,7 @@ function renderFilmList(list=[], $el){
 	$el.innerHTML='';
   list.forEach(movie=>{
     let new_$el = document.createElement('div')
-    new_$el.classList.add('card');
+    new_$el.classList.add('card-find');
     new_$el.innerHTML=`
         <img
           src="${movie.img}"
@@ -309,9 +309,12 @@ function renderFilmList(list=[], $el){
         <div class="card-body">
           <h5 class="card-title">${movie.title}</h5>
           <p class="card-text">${movie.shortDescription || 'Описание'} ${movie.year || ''} ${movie.genres} ${movie.rating} </p>
-          <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</button>
-          <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>Просмотрено</button>
-        `
+         <div class="button-section">
+          <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Подробнее</button>
+          <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>(о)</button>
+        </div>
+        </div>
+          `
     $el.appendChild(new_$el)
   })
  
@@ -422,9 +425,11 @@ const toWatchedHtml = (movie) => `
     <div class="card-body">
         <h5 class="card-title">${movie.title} ${(movie.year || '') && `(${movie.year})`}</h5>
         <p class="card-text">${movie.shortDescription ||'Описание'} </br>  <i>${movie.genres||''}</i> </br> <strong>${movie.rating || ''} </strong ></p>
-        <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Описание</button>
+        
+        <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Подробнее</button>
         <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>Удалить</button>
-    </div>
+   
+        </div>
 </div>
 `
 
