@@ -27,6 +27,7 @@ function randomInteger(min, max) {
 
   function getWatchedMovies() {
     const movies = localStorage.getItem('watchedMovies');
+    console.log('Извлеченные фильмы:', movies);
     return movies ? JSON.parse(movies) : [];
   }
 
@@ -35,7 +36,9 @@ function randomInteger(min, max) {
     // watchedMovies.push(movie)
     // getNextId(watchedMovies)
     watchedMovies.push( {id:getNextId(watchedMovies), title: movie.title, img: movie.img, shortDescription: movie.shortDescription, description: movie.description, year: movie.year, genres: movie.genres, rating: movie.rating})
+    console.log('До добавления:', watchedMovies);
     localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
+    console.log('После добавления:', watchedMovies);
   }
 
   // const watchedMovies = getWatchedMovies();
@@ -201,11 +204,11 @@ const descriptionModal = $.descriptionModal ({
 //Порядок появления и закрытия модалок
 document.addEventListener('click',event =>{
   const currentPage = document.querySelector('.page.show').getAttribute('data-page');
-            // console.log('Current page:', currentPage);
+            console.log('Current page:', currentPage);
 
 
     if (event.target.tagName === 'A') {
-    return;
+    return
   }else if(currentPage === 'titles'){
     event.preventDefault()
     const btnType = event.target.dataset.btn
@@ -224,6 +227,7 @@ document.addEventListener('click',event =>{
         }).then( ()=> {
             console.log('Добавлено в просмотренные');
             saveWatchedMovies(movie)
+            renderWatchedPageMovies(watchedPageMovies)
             
            return $.viewed({
               title: 'Удалить?',
@@ -252,11 +256,11 @@ document.addEventListener('click',event =>{
       })
         })
     }
-  } else if (currentPage === 'watchedTitles'){
+  }  else if (currentPage === 'watchedTitles'){
     event.preventDefault()
     const btnType = event.target.dataset.btn
     const id = +event.target.dataset.id
-    const movie = watchedMovies.find((f) => f.id === id)
+    const movie = watchedPageMovies.find((f) => f.id === id)
   
     if (btnType === "description") {
       console.log(movie.title);
@@ -270,9 +274,9 @@ document.addEventListener('click',event =>{
           content: `<p> Вы удаляете: <strong> ${movie.title} </strong> из просмотренных </p>`
       }).then( ()=> {
         console.log('Удалено из текущего списка');
-        watchedMovies = watchedMovies.filter( f => f.id !== id)
-        renderWatchedMovies(watchedMovies)
-        saveWatchedMovies(watchedMovies )
+        watchedPageMovies = watchedPageMovies.filter( f => f.id !== id)
+        renderWatchedPageMovies(watchedPageMovies)
+        saveWatchedPageMovies(watchedPageMovies )
         }).catch( () => {
       console.log('Cancel');
       })
@@ -389,25 +393,25 @@ function showPage(pageId){
 
 
 //watched Section
-function getWatchedMovies() {
+function getWatchedPageMovies() {
   const movies = localStorage.getItem("watchedMovies")
   return movies ? JSON.parse(movies) : []
 }
-let watchedMovies = getWatchedMovies()
+let watchedPageMovies = getWatchedPageMovies()
 
-function saveWatchedMovies(movie){
-  let watchedMovies = getWatchedMovies()
+function saveWatchedPageMovies(movie){
+  let watchedPageMovies = getWatchedPageMovies()
   // watchedMovies.push(movie)
   // getNextId(watchedMovies)
   // watchedMovies.push( {id:getNextId(watchedMovies), title: movie.title, img: movie.img})
   localStorage.setItem('watchedMovies', JSON.stringify(movie));
 }
 
-// function removeWatchedMovie(movieId) {
-//   let watchedMovies = getWatchedMovies();
-//   watchedMovies = watchedMovies.filter(movie => movie.id !== movieId);
-//   localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
-// }
+function removeWatchedPageMovie(movieId) {
+  let watchedPageMovies = getWatchedPageMovies();
+  watchedPageMovies = watchedPageMovies.filter(movie => movie.id !== movieId);
+  localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
+}
 
 const toWatchedHtml = (movie) => `
 <div class="watchedCard">
@@ -424,12 +428,12 @@ const toWatchedHtml = (movie) => `
 </div>
 `
 
-function renderWatchedMovies(movies) {
+function renderWatchedPageMovies(movies) {
   const html = movies.map((movie) => toWatchedHtml(movie)).reverse().join("")
   document.querySelector("#watched-films").innerHTML = html
   arrangeCards('.watchedCard', 200)
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderWatchedMovies(watchedMovies)
+  renderWatchedPageMovies(watchedPageMovies)
 })
