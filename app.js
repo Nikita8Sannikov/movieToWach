@@ -166,7 +166,7 @@ function arrangeCards(className, y=0) {
 
     console.log(`Card ${index}: rowIndex=${rowIndex}, positionInRow=${positionInRow}, offsetX=${offsetX}, offsetY=${offsetY}`);
 
-    card.style.transform = `translate(${offsetX+800}px, ${offsetY+y}px)`;
+    card.style.transform = `translate(${offsetX}px, ${offsetY+y}px)`;
   });
 }
 
@@ -425,10 +425,10 @@ const toWatchedHtml = (movie) => `
     <div class="card-body">
         <h5 class="card-title">${movie.title} ${(movie.year || '') && `(${movie.year})`}</h5>
         <p class="card-text">${movie.shortDescription ||'Описание'} </br>  <i>${movie.genres||''}</i> </br> <strong>${movie.rating || ''} </strong ></p>
-        
+        <div class="button-section">
         <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Подробнее</button>
-        <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>Удалить</button>
-   
+        <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}><span class="fa-regular fa-trash-can"></span></button>
+        </div>
         </div>
 </div>
 `
