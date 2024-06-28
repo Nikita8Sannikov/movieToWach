@@ -1,19 +1,21 @@
 *{
     margin: 0;
     padding: 0;
-    /* box-sizing: border-box; */
+    box-sizing: border-box;
 }
 
 body {
     font-family: 'Manrope', sans-serif;
     background: linear-gradient(0deg, #151616 -103%, #000000 13%);
     /* color: white; */
-    max-width: 1900px;
+    /* max-width: 1900px; */
     margin: auto;
 }
 
 .wrapper {
     padding: 20px;
+    position: relative;
+    z-index: 1;
 }
 .header{
     /* width: 100%; */
@@ -21,6 +23,7 @@ body {
     justify-content: space-between;
     margin: 47px 42px;
     align-items: center;
+    z-index: 1000;
 }
 .logo-section{
     display: flex;
@@ -234,6 +237,14 @@ body {
       rgba(255 255 255 / 1) 0%,
       rgba(255 255 255 / 0) 100%
     )
+    ;
+    box-shadow: 
+    0px 14.55px 100px 0px rgba(125, 20, 208, 0.8),
+    14.55px 22.09px 150px 0px rgba(218, 37, 156, 0.3),
+    -29.09px -29.09px 100px 0px rgba(102, 67, 242, 0.3),
+    0px 0px 14.55px 0px rgba(255, 255, 255, 0.4),
+    inset 0px 0px 14.55px 0px rgba(255, 255, 255, 0.4)
+
     ;
 }
 
@@ -465,5 +476,35 @@ body {
 .page.show {
     display: block;
 }
-
-
+/* .wrapper{
+    position: relative;
+} */
+.left-up-shadow{
+    /* position: absolute; */
+    top: -450px;
+    width: 1611px;
+    height: 1262px;
+}
+.right-up-shadow{
+    /* position: absolute; */
+    top: -110px;
+    right: -60px;
+    height: 1262px;
+    width: 1276px;
+}
+.down-shadow{
+    /* position: absolute; */
+    width: 1025px;
+    height: 1025px;
+    top: 500px;
+    left: 750px;
+}
+.left-up-shadow,
+.right-up-shadow,
+.down-shadow {
+    position: fixed;
+    z-index: -1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
