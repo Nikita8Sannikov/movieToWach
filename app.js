@@ -123,7 +123,7 @@ const toHtml = movie => `
           <p class="card-text">${movie.shortDescription ||'Описание по кнопке ниже &#8595'} </br>  <i>${movie.genres||''}</i> </br> <strong>${movie.rating || ''} </strong ></p>
           <div class="button-section">
           <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Подробнее</button>
-          <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>(o)</button>
+          <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}><span class="fa-regular fa-eye view-icon"></span></button>
           </div>
           </div>
       </div>
@@ -311,7 +311,7 @@ function renderFilmList(list=[], $el){
           <p class="card-text">${movie.shortDescription || 'Описание'} ${movie.year || ''} ${movie.genres} ${movie.rating} </p>
          <div class="button-section">
           <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Подробнее</button>
-          <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}>(о)</button>
+          <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}><span class="fa-regular fa-eye view-icon"></span></button>
         </div>
         </div>
           `
@@ -373,7 +373,7 @@ fetch(urlWithParams, options)
 }
 })
 
-addMoreBtn = document.querySelector('.add-more')
+addMoreBtn = document.querySelector('.bars-btn')
 addFilmOptions = document.querySelector('.addFilmOptions')
 
 addMoreBtn.addEventListener('click', () =>{
