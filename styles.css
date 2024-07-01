@@ -281,6 +281,9 @@ body {
 .view-icon{
     pointer-events: none;
 }
+.trash-icon{
+    pointer-events: none;
+}
 .watchedCard{
     width: 250px;
     margin: 10px;

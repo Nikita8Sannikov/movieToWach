@@ -35,10 +35,11 @@ function randomInteger(min, max) {
     let watchedMovies = getWatchedMovies()
     // watchedMovies.push(movie)
     // getNextId(watchedMovies)
-    watchedMovies.push( {id:getNextId(watchedMovies), title: movie.title, img: movie.img, shortDescription: movie.shortDescription, description: movie.description, year: movie.year, genres: movie.genres, rating: movie.rating})
     console.log('До добавления:', watchedMovies);
+    watchedMovies.push( {id:getNextId(watchedMovies), title: movie.title, img: movie.img, shortDescription: movie.shortDescription, description: movie.description, year: movie.year, genres: movie.genres, rating: movie.rating})
     localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
     console.log('После добавления:', watchedMovies);
+    watchedPageMovies = watchedMovies;
   }
 
   // const watchedMovies = getWatchedMovies();
@@ -145,7 +146,7 @@ function arrangeCards(className, y=0) {
   const cardWidth = 350; // ширина карточки + расстояние между карточками
   const cardHeight = 600; // высота карточки
 
-  console.log('Total cards:', cards.length);
+  // console.log('Total cards:', cards.length);
 
   cards.forEach((card, index) => {
     const rowIndex = Math.floor(index / cardsPerRow);
@@ -164,7 +165,7 @@ function arrangeCards(className, y=0) {
     // Увеличим коэффициент для более глубокой дуги
     offsetY = rowIndex * (cardHeight + 20) - Math.abs(offsetX) * 0.3;
 
-    console.log(`Card ${index}: rowIndex=${rowIndex}, positionInRow=${positionInRow}, offsetX=${offsetX}, offsetY=${offsetY}`);
+    // console.log(`Card ${index}: rowIndex=${rowIndex}, positionInRow=${positionInRow}, offsetX=${offsetX}, offsetY=${offsetY}`);
 
     card.style.transform = `translate(${offsetX}px, ${offsetY+y}px)`;
   });
@@ -227,6 +228,8 @@ document.addEventListener('click',event =>{
         }).then( ()=> {
             console.log('Добавлено в просмотренные');
             saveWatchedMovies(movie)
+            let watchedPageMovies = getWatchedPageMovies()
+            console.log('еще лог',watchedPageMovies);
             renderWatchedPageMovies(watchedPageMovies)
             
            return $.viewed({
@@ -427,7 +430,7 @@ const toWatchedHtml = (movie) => `
         <p class="card-text">${movie.shortDescription ||'Описание'} </br>  <i>${movie.genres||''}</i> </br> <strong>${movie.rating || ''} </strong ></p>
         <div class="button-section">
         <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Подробнее</button>
-        <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}><span class="fa-regular fa-trash-can"></span></button>
+        <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}><span class="fa-regular fa-trash-can trash-icon"></span></button>
         </div>
         </div>
 </div>
