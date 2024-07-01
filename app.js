@@ -75,13 +75,19 @@ btn.addEventListener('click', () => {
         const randomMovie =  allMovies[randomInteger(0, allMovies.length-1)]
         document.querySelector('#result').innerHTML = `
     <div class="card-random">
+    <div class="img-wrapper">
         <img
           src="${randomMovie.img}"
           alt="${randomMovie.title}"
+          class="card-img"
         />
+        <div class="description-layer">
+        <p class="card-text">${randomMovie.shortDescription ||'Описание'} </br>  <i>${randomMovie.genres||''}</i> </p>
+          </div>
+    </div>
         <div class="card-body">
           <h5 class="card-title">${randomMovie.title} ${(randomMovie.year || '') && `(${randomMovie.year})`}</h5>
-          <p class="card-text">${randomMovie.shortDescription ||'Описание'} </br>  <i>${randomMovie.genres||''}</i> </br> <strong>${randomMovie.rating || ''} </strong ></p>
+          <p class="card-text"> <i class="fa-solid fa-star star-icon"></i> ${randomMovie.rating || ''} </p>
           <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${randomMovie.id}>Подробнее</button>
       </div>
         `
@@ -114,14 +120,21 @@ addBtn.addEventListener('click', () => {
 //Делаем из объекта карточку
 const toHtml = movie => `
 <div class="card">
-        <img
+    <div class="img-wrapper">
+     <img
           src="${movie.img}"
           alt="${movie.title}"
+          class="card-img"
         />
+        <div class="description-layer">
+        <p class="card-text">${movie.shortDescription ||'Описание по кнопке ниже &#8595'} </br>  <i>${movie.genres||''}</i> </p>
+        </div>
+    </div>
+       
         <div class="card-body">
           <h5 class="card-title">${movie.title} ${(movie.year || '') && `(${movie.year})`}
 </h5>
-          <p class="card-text">${movie.shortDescription ||'Описание по кнопке ниже &#8595'} </br>  <i>${movie.genres||''}</i> </br> <strong>${movie.rating || ''} </strong ></p>
+          <p class="card-text"> <i class="fa-solid fa-star star-icon"></i> ${movie.rating || ''} </p>
           <div class="button-section">
           <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Подробнее</button>
           <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}><span class="fa-regular fa-eye view-icon"></span></button>
@@ -129,12 +142,34 @@ const toHtml = movie => `
           </div>
       </div>
 `
+// const descriptions = document.querySelectorAll(".description-layer")
+// function showDescription(){
+//   const descriptions = document.querySelectorAll(".description-layer")
+//   console.log(descriptions);
+
+//   descriptions.forEach((description)=>{
+//     description.addEventListener('mouseover', ()=>{
+//       console.log('click');
+//       clearDescriptionClasses()
+
+//       description.classList.add("show-description")
+//     })
+//   })
+// }
+// function clearDescriptionClasses() {
+//   descriptions.forEach((description) => {
+//     description.classList.remove("show-description")
+//   })
+// }
+
+
 
 //Для рендера списка
 function render(){
     const html = allMovies.map(movie => toHtml(movie)).reverse().join('')
     document.querySelector('#films').innerHTML = html
     arrangeCards('.card',100)
+    // showDescription()
 }
 
 render()
@@ -305,13 +340,19 @@ function renderFilmList(list=[], $el){
     let new_$el = document.createElement('div')
     new_$el.classList.add('card-find');
     new_$el.innerHTML=`
+    <div class="img-wrapper">
         <img
           src="${movie.img}"
           alt="${movie.title}"
+          class="card-img"
         />
+        <div class="description-layer">
+         <p class="card-text">${movie.shortDescription || 'Описание'} ${movie.year || ''} ${movie.genres} </p>
+            </div>
+    </div>
         <div class="card-body">
           <h5 class="card-title">${movie.title}</h5>
-          <p class="card-text">${movie.shortDescription || 'Описание'} ${movie.year || ''} ${movie.genres} ${movie.rating} </p>
+          <p class="card-text"> <i class="fa-solid fa-star star-icon"></i> ${movie.rating} </p>
          <div class="button-section">
           <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Подробнее</button>
           <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}><span class="fa-regular fa-eye view-icon"></span></button>
@@ -398,6 +439,8 @@ function showPage(pageId){
 
 
 
+
+
 //watched Section
 function getWatchedPageMovies() {
   const movies = localStorage.getItem("watchedMovies")
@@ -421,13 +464,20 @@ function removeWatchedPageMovie(movieId) {
 
 const toWatchedHtml = (movie) => `
 <div class="watchedCard">
+  <div class="img-wrapper">
     <img
         src="${movie.img}"
         alt="${movie.title}"
-    />
+        class="card-img"
+        />
+      <div class="description-layer">
+        <p class="card-text">${movie.shortDescription ||'Описание'} </br>  <i>${movie.genres||''}</i></p>
+        </div>
+    </div>
+    
     <div class="card-body">
         <h5 class="card-title">${movie.title} ${(movie.year || '') && `(${movie.year})`}</h5>
-        <p class="card-text">${movie.shortDescription ||'Описание'} </br>  <i>${movie.genres||''}</i> </br> <strong>${movie.rating || ''} </strong ></p>
+        <p class="card-text"><i class="fa-solid fa-star star-icon"></i> ${movie.rating || ''} </p>
         <div class="button-section">
         <button href="#" class="btn btn-primary" data-btn ="description" data-id = ${movie.id}>Подробнее</button>
         <button href="#" class="btn btn-danger" data-btn ="viewed" data-id = ${movie.id}><span class="fa-regular fa-trash-can trash-icon"></span></button>
