@@ -77,7 +77,7 @@ btn.addEventListener('click', () => {
     <div class="card-random">
     <div class="img-wrapper">
         <img
-          src="${randomMovie.img}"
+          data-src="${randomMovie.img}"
           alt="${randomMovie.title}"
           class="card-img"
         />
@@ -123,6 +123,7 @@ const toHtml = movie => `
     <div class="img-wrapper">
      <img
           src="${movie.img}"
+          loading="lazy"
           alt="${movie.title}"
           class="card-img"
         />
@@ -170,6 +171,42 @@ function render(){
     document.querySelector('#films').innerHTML = html
     arrangeCards('.card',100)
     // showDescription()
+
+    //для загрузки изображений только во время появления во viewport
+    const images = document.querySelectorAll('img[data-src]')
+    const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    }
+//Загрузим изображения с задержкой чтобы избежать 429 (Too Many Requests)
+    const loadImage = (img, delay) => {
+      return new Promise((resolve) => {
+          setTimeout(() => {
+              img.src = img.dataset.src  // Установим реального URL изображения
+              img.removeAttribute('data-src') // Удаленим data-src
+              resolve()
+          }, delay)
+      });
+  };
+
+    const callback = async (entries, observer) => {
+      for (let entry of entries) {
+          if (entry.isIntersecting) {  // Если элемент пересек зону видимости
+              const img = entry.target
+              // img.src = img.dataset.src
+              // img.removeAttribute('data-src')
+              await loadImage(img, 500)
+              observer.unobserve(img)  // Прекращаем наблюдения за этим элементом
+          }
+      }
+  }
+
+  const observer = new IntersectionObserver(callback, options)
+
+  images.forEach(image => {
+    observer.observe(image);
+});
 }
 
 render()
