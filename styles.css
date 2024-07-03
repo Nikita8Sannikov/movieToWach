@@ -101,6 +101,7 @@ body {
     outline: none;
     border: 1px solid white;
     caret-color: white;
+    color: white;
 }
 /* .clickable{
     position: absolute;
@@ -141,15 +142,22 @@ body {
 }
 .addFilmOptions {
     display: none;
-    border: 1px solid white;
+    /* border: 1px solid white;
     border-radius: 20px;
     width: 50%;
-    margin: 10px auto;
+    margin: 10px auto; */
+    justify-content: center;
+    color:white;
 }
 .show {
-    display: block;
+    /* display: block; */
+    display: flex;
 }
-.addFilmOptions>input{
+.add-section{
+    display: flex;
+    margin: 10px 150px 0 0;
+}
+.add-inputs>input{
     font-size: 15px;
     border-radius: 15px;
     padding: 10px;
@@ -157,6 +165,8 @@ body {
     outline: none;
     border: 1px solid white;
     caret-color: white;
+    color: white;
+    margin: 0 10px;
 }
 .add-button {
     padding: 10px;
@@ -302,11 +312,13 @@ body {
     opacity: 0;
     z-index: 2;
     transition: opacity 0.3s ease-in-out;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .img-wrapper:hover .card-img {
     /* opacity: 1; */
     filter: blur(5px);
+    
 }
 
 .img-wrapper:hover .description-layer {
