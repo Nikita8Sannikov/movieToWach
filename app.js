@@ -77,7 +77,8 @@ btn.addEventListener('click', () => {
     <div class="card-random">
     <div class="img-wrapper">
         <img
-          data-src="${randomMovie.img}"
+          src="${randomMovie.img}"
+          loading="lazy"
           alt="${randomMovie.title}"
           class="card-img"
         />
@@ -122,7 +123,7 @@ const toHtml = movie => `
 <div class="card">
     <div class="img-wrapper">
      <img
-          src="${movie.img}"
+          data-src="${movie.img}"
           loading="lazy"
           alt="${movie.title}"
           class="card-img"
